@@ -13,6 +13,7 @@
 		F41CCA241DE0F4E80027C0EA /* transcribe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F41CCA221DE0F4E80027C0EA /* transcribe.xcdatamodeld */; };
 		F41CCA261DE0F4E80027C0EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F41CCA251DE0F4E80027C0EA /* Assets.xcassets */; };
 		F41CCA291DE0F4E80027C0EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F41CCA271DE0F4E80027C0EA /* LaunchScreen.storyboard */; };
+		F41CCA331DE0FDA50027C0EA /* TranscriptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41CCA321DE0FDA50027C0EA /* TranscriptionsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		F41CCA251DE0F4E80027C0EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F41CCA281DE0F4E80027C0EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F41CCA2A1DE0F4E80027C0EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F41CCA321DE0FDA50027C0EA /* TranscriptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptionsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				F41CCA271DE0F4E80027C0EA /* LaunchScreen.storyboard */,
 				F41CCA2A1DE0F4E80027C0EA /* Info.plist */,
 				F41CCA221DE0F4E80027C0EA /* transcribe.xcdatamodeld */,
+				F41CCA321DE0FDA50027C0EA /* TranscriptionsTableViewController.swift */,
 			);
 			path = transcribe;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F41CCA331DE0FDA50027C0EA /* TranscriptionsTableViewController.swift in Sources */,
 				F41CCA1E1DE0F4E80027C0EA /* ViewController.swift in Sources */,
 				F41CCA1C1DE0F4E80027C0EA /* AppDelegate.swift in Sources */,
 				F41CCA241DE0F4E80027C0EA /* transcribe.xcdatamodeld in Sources */,
