@@ -15,6 +15,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     var audioRec: AVAudioRecorder?
     var recFileURL: URL!
     
+    var audioPlayer: AVAudioPlayer?
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBAction func stopRecordingTapped(_ sender: Any) {
@@ -25,17 +27,22 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
         
     }
+    
+    @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         recFileURL = Utilities.getAudioFileURL()
         // print(Utilities.getDocsDirectory().absoluteString)
-        print("elliot: " + recFileURL.absoluteString)
+        print("File URL is" + recFileURL.absoluteString)
         recordAudio()
-        activityIndicator.startAnimating()
     }
     
     func recordAudio() {
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        
         let session = AVAudioSession.sharedInstance()
         
         do {
@@ -52,9 +59,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             audioRec = try AVAudioRecorder(url: recFileURL, settings: settings)
             audioRec?.delegate = self
             audioRec?.record()
-            print("elliot: started recording...")
+            print("Started recording...")
         } catch let error {
-            print("elliot: failed recording - \(error)")
+            print("Failed recording - \(error)")
             recordingEnded(success: false)
         }
     }
@@ -72,8 +79,11 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         activityIndicator.stopAnimating()
         if success {
             do {
-                // transcribe audio
-                print("elliot: successfully ended recording")
+                // play and transcribe audio
+                audioPlayer?.stop()
+                audioPlayer = try AVAudioPlayer(contentsOf: recFileURL)
+                print("Successfully ended recording and playing...")
+                transcribeAudio()
             } catch let error {
                 print(error)
             }
@@ -87,6 +97,33 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - Transcribe
+    func transcribeAudio() {
+        self.textView.text = "Transcribing..."
+        
+        let recognizer = SFSpeechRecognizer()
+        let request = SFSpeechURLRecognitionRequest(url: recFileURL)
+        
+        recognizer?.recognitionTask(with: request, resultHandler: {
+            [unowned self] (result, error) in
+            
+            guard let result = result
+            else {
+                print("Error transcribing - \(error)")
+                self.textView.text = "Error: \(error?.localizedDescription)"
+                return
+            }
+            
+            if result.isFinal {
+                DispatchQueue.main.async {
+                    self.textView.text = result.bestTranscription.formattedString
+                    print("Transcription succesful")
+                }
+                
+            }
+        })
+    }
+    
     /*
     // MARK: - Navigation
 

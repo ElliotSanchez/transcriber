@@ -17,12 +17,8 @@ class Utilities {
     }
     
     static func getAudioFileURL() -> URL? {
-        do {
-            let audioURL = try getDocsDirectory().appendingPathComponent(getDateAndTime() + ".m4a")
-            return audioURL
-        } catch _ {
-            return nil
-        }
+        let audioURL = getDocsDirectory().appendingPathComponent(getDateAndTime() + ".m4a")
+        return audioURL
     }
     
     static func getDateAndTime() -> String {
