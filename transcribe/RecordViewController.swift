@@ -42,6 +42,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     func recordAudio() {
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
+        self.textView.text = "Recording..."
         
         let session = AVAudioSession.sharedInstance()
         
@@ -97,7 +98,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Transcribe
+    // MARK: - Transcription
     func transcribeAudio() {
         self.textView.text = "Transcribing..."
         
@@ -105,19 +106,19 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         let request = SFSpeechURLRecognitionRequest(url: recFileURL)
         
         recognizer?.recognitionTask(with: request, resultHandler: {
-            [unowned self] (result, error) in
+            [weak self] (result, error) in
             
             guard let result = result
             else {
                 print("Error transcribing - \(error)")
-                self.textView.text = "Error: \(error?.localizedDescription)"
+                self?.textView.text = "Error: \(error?.localizedDescription)"
                 return
             }
             
             if result.isFinal {
                 DispatchQueue.main.async {
-                    self.textView.text = result.bestTranscription.formattedString
-                    print("Transcription succesful")
+                    self?.textView.text = result.bestTranscription.formattedString
+                    print("Transcription succesful: \(result.bestTranscription.formattedString)")
                 }
                 
             }
