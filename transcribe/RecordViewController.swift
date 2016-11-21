@@ -7,20 +7,81 @@
 //
 
 import UIKit
+import AVFoundation
+import Speech
 
-class RecordViewController: UIViewController {
+class RecordViewController: UIViewController, AVAudioRecorderDelegate {
 
+    var audioRec: AVAudioRecorder?
+    var recFileURL: URL!
+    
+    @IBAction func stopRecordingTapped(_ sender: Any) {
+        audioRec?.stop()
+        if sender is UIButton {
+            (sender as! UIButton).titleLabel?.text = "Finished"
+            (sender as! UIButton).isEnabled = false
+        }
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        recFileURL = Utilities.getAudioFileURL()
+        // print(Utilities.getDocsDirectory().absoluteString)
+        print("elliot: " + recFileURL.absoluteString)
+        recordAudio()
     }
-
+    
+    func recordAudio() {
+        let session = AVAudioSession.sharedInstance()
+        
+        do {
+            try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+            try session.setActive(true)
+            
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 44100,
+                AVNumberOfChannelsKey: 2,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            ]
+            
+            audioRec = try AVAudioRecorder(url: recFileURL, settings: settings)
+            audioRec?.delegate = self
+            audioRec?.record()
+            print("elliot: started recording...")
+        } catch let error {
+            print("elliot: failed recording - \(error)")
+            recordingEnded(success: false)
+        }
+    }
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if flag {
+            recordingEnded(success: true)
+        } else {
+            recordingEnded(success: false)
+        }
+    }
+    
+    func recordingEnded(success: Bool) {
+        audioRec?.stop()
+        if success {
+            do {
+                // transcribe audio
+                print("elliot: successfully ended recording")
+            } catch let error {
+                print(error)
+            }
+        } else {
+            
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
