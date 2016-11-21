@@ -15,11 +15,13 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     var audioRec: AVAudioRecorder?
     var recFileURL: URL!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     @IBAction func stopRecordingTapped(_ sender: Any) {
         audioRec?.stop()
         if sender is UIButton {
-            (sender as! UIButton).titleLabel?.text = "Finished"
             (sender as! UIButton).isEnabled = false
+            (sender as! UIButton).setTitle("Finished", for: .disabled)
         }
         
     }
@@ -30,6 +32,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         // print(Utilities.getDocsDirectory().absoluteString)
         print("elliot: " + recFileURL.absoluteString)
         recordAudio()
+        activityIndicator.startAnimating()
     }
     
     func recordAudio() {
@@ -66,6 +69,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     func recordingEnded(success: Bool) {
         audioRec?.stop()
+        activityIndicator.stopAnimating()
         if success {
             do {
                 // transcribe audio

@@ -104,13 +104,21 @@
                                     <action selector="stopRecordingTapped:" destination="qaL-tU-e6h" eventType="touchUpInside" id="hl6-Sy-FXp"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="B6H-Rd-bD2">
+                                <rect key="frame" x="177" y="258" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2Vr-Lx-4DK" firstAttribute="centerY" secondItem="g7V-9m-gZM" secondAttribute="centerY" id="D4U-2p-BrA"/>
                             <constraint firstItem="2Vr-Lx-4DK" firstAttribute="centerX" secondItem="g7V-9m-gZM" secondAttribute="centerX" id="Eep-Bg-g15"/>
+                            <constraint firstItem="B6H-Rd-bD2" firstAttribute="centerX" secondItem="g7V-9m-gZM" secondAttribute="centerX" id="j5P-NP-cI1"/>
+                            <constraint firstItem="2Vr-Lx-4DK" firstAttribute="top" secondItem="B6H-Rd-bD2" secondAttribute="bottom" constant="35" id="qQg-XU-MEK"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="B6H-Rd-bD2" id="IaW-i1-rjw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="09e-mG-Xqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
