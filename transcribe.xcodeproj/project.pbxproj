@@ -14,6 +14,8 @@
 		F41CCA261DE0F4E80027C0EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F41CCA251DE0F4E80027C0EA /* Assets.xcassets */; };
 		F41CCA291DE0F4E80027C0EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F41CCA271DE0F4E80027C0EA /* LaunchScreen.storyboard */; };
 		F41CCA331DE0FDA50027C0EA /* TranscriptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41CCA321DE0FDA50027C0EA /* TranscriptionsTableViewController.swift */; };
+		F4C325BD1DE359C5002BF906 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C325BC1DE359C5002BF906 /* Utilities.swift */; };
+		F4C325BF1DE35EBA002BF906 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C325BE1DE35EBA002BF906 /* RecordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		F41CCA281DE0F4E80027C0EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F41CCA2A1DE0F4E80027C0EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F41CCA321DE0FDA50027C0EA /* TranscriptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranscriptionsTableViewController.swift; sourceTree = "<group>"; };
+		F4C325BC1DE359C5002BF906 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		F4C325BE1DE35EBA002BF906 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				F41CCA2A1DE0F4E80027C0EA /* Info.plist */,
 				F41CCA221DE0F4E80027C0EA /* transcribe.xcdatamodeld */,
 				F41CCA321DE0FDA50027C0EA /* TranscriptionsTableViewController.swift */,
+				F4C325BC1DE359C5002BF906 /* Utilities.swift */,
+				F4C325BE1DE35EBA002BF906 /* RecordViewController.swift */,
 			);
 			path = transcribe;
 			sourceTree = "<group>";
@@ -146,6 +152,8 @@
 				F41CCA331DE0FDA50027C0EA /* TranscriptionsTableViewController.swift in Sources */,
 				F41CCA1E1DE0F4E80027C0EA /* ViewController.swift in Sources */,
 				F41CCA1C1DE0F4E80027C0EA /* AppDelegate.swift in Sources */,
+				F4C325BF1DE35EBA002BF906 /* RecordViewController.swift in Sources */,
+				F4C325BD1DE359C5002BF906 /* Utilities.swift in Sources */,
 				F41CCA241DE0F4E80027C0EA /* transcribe.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +318,7 @@
 				F41CCA2F1DE0F4E80027C0EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

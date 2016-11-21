@@ -60,7 +60,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nbK-Ls-qId" id="383-bW-oEe">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -71,12 +71,34 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Transcriptions" id="fpa-dE-R3m">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="40b-qZ-hMk"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="40b-qZ-hMk">
+                            <connections>
+                                <segue destination="qaL-tU-e6h" kind="show" id="zMH-ko-nad"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ddc-ao-pNU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="220" y="-125.4872563718141"/>
+        </scene>
+        <!--Record View Controller-->
+        <scene sceneID="hxY-6s-8da">
+            <objects>
+                <viewController id="qaL-tU-e6h" customClass="RecordViewController" customModule="transcribe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Pfq-Lv-lge"/>
+                        <viewControllerLayoutGuide type="bottom" id="Zhn-kO-pGM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="g7V-9m-gZM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="09e-mG-Xqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1178" y="-125"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -103,6 +125,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PuF-Ea-c3K">
                                         <rect key="frame" x="125.5" y="131.5" width="92" height="30"/>
                                         <state key="normal" title="Grant Access"/>
+                                        <connections>
+                                            <action selector="grantAccessClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ftZ-eW-qck"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -115,10 +140,14 @@
                             <constraint firstAttribute="trailingMargin" secondItem="AY2-bT-kKO" secondAttribute="trailing" id="kEN-jN-yUj"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="grantAccessButton" destination="PuF-Ea-c3K" id="PQK-ch-bi5"/>
+                        <outlet property="label" destination="cj5-Wz-3EX" id="fXY-uw-3Ta"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2015.2" y="138.98050974512745"/>
+            <point key="canvasLocation" x="2166" y="223"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UQT-hO-VaA">
@@ -126,7 +155,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uRq-Dz-2Rk" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="history" id="eRE-XI-hGQ"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NmI-TR-MOU">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NmI-TR-MOU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -147,7 +176,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UBv-W4-10w" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="Nri-sR-W4E"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hDL-F2-g7V">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hDL-F2-g7V">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="0.5913090741" blue="0.39294653010000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
