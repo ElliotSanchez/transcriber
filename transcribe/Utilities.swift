@@ -10,23 +10,33 @@ import Foundation
 
 class Utilities {
     
-    static func getDocsDirectory() -> URL {
+    var dateTime = Date()
+    let date = Date()
+    let formatter = DateFormatter()
+    var timeString: String!
+    
+    init() {
+        formatter.dateFormat = "yyyy-mm-dd-HH-mm-ss"
+        timeString = formatter.string(from: date)
+    }
+    
+    func getDocsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let docsDirectory = paths[0]
         return docsDirectory
     }
     
-    static func getAudioFileURL() -> URL? {
+    func getAudioFileURL() -> URL? {
         let audioURL = getDocsDirectory().appendingPathComponent(getDateAndTime() + ".m4a")
         return audioURL
     }
     
-    static func getDateAndTime() -> String {
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-mm-dd-HH-mm-ss"
-        
-        let timeString = formatter.string(from: date)
+    func getTextFileURL() -> URL? {
+        let textURL = getDocsDirectory().appendingPathComponent(getDateAndTime() + ".txt")
+        return textURL
+    }
+    
+    func getDateAndTime() -> String {
         return timeString
     }
     

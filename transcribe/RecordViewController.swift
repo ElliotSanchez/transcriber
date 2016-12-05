@@ -14,13 +14,34 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
 
     var audioRec: AVAudioRecorder?
     var recFileURL: URL!
+    var textFileURL: URL!
     
     var audioPlayer: AVAudioPlayer?
+    var utilitiesObject = Utilities()
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var textView: UITextView!
+    
+    // On initial load of view, function gets unique URLs derived from current time and starts recoring
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        recFileURL = utilitiesObject.getAudioFileURL()
+        textFileURL = utilitiesObject.getTextFileURL()
+        // print(Utilities.getDocsDirectory().absoluteString)
+        print("File URL is" + recFileURL.absoluteString)
+        
+        // Starts recording immediate upon load of view
+        recordAudio()
+    }
+    
+    // Button that stops recording is disabled after tapped
     @IBAction func stopRecordingTapped(_ sender: Any) {
+        // Stop recording
         audioRec?.stop()
+        
+        // Disable button. Specifies "as UIButton" here because it was created with sender as "Any", which can't be passeed to .isEnabled or .setTitle
         if sender is UIButton {
             (sender as! UIButton).isEnabled = false
             (sender as! UIButton).setTitle("Finished", for: .disabled)
@@ -28,17 +49,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         
     }
     
-    @IBOutlet weak var textView: UITextView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        recFileURL = Utilities.getAudioFileURL()
-        // print(Utilities.getDocsDirectory().absoluteString)
-        print("File URL is" + recFileURL.absoluteString)
-        recordAudio()
-    }
-    
+    // Called form viewDidLoad, creates audio session and records
     func recordAudio() {
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
@@ -67,6 +78,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    // Called by system on completion of recording,
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
             recordingEnded(success: true)
@@ -75,15 +87,21 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    // Calls the player and transcription when recording ends, as triggered by audioRecorderDidFinishRecording above
     func recordingEnded(success: Bool) {
+        // Redundant call to stop recording out of extra precaution(?)
         audioRec?.stop()
         activityIndicator.stopAnimating()
+        
         if success {
             do {
                 // play and transcribe audio
                 audioPlayer?.stop()
                 audioPlayer = try AVAudioPlayer(contentsOf: recFileURL)
+                audioPlayer?.play()
                 print("Successfully ended recording and playing...")
+                
+                // calls transcription without arguments because all files are based on timestamped URLs generated as class level variables each time the view is loaded. This approach won't allow for the recording screen to begin a second recording unless rebuilt in future versions.
                 transcribeAudio()
             } catch let error {
                 print(error)
@@ -92,15 +110,11 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     // MARK: - Transcription
     func transcribeAudio() {
-        self.textView.text = "Transcribing..."
+        // Update text where transcription will go to indicate transcription has begun to user
+        self.textView.text = "Playing and transcribing audio..."
         
         let recognizer = SFSpeechRecognizer()
         let request = SFSpeechURLRecognitionRequest(url: recFileURL)
@@ -116,13 +130,28 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             }
             
             if result.isFinal {
+                // All work to update UI upon completed transcription contained in this async block
                 DispatchQueue.main.async {
-                    self?.textView.text = result.bestTranscription.formattedString
-                    print("Transcription succesful: \(result.bestTranscription.formattedString)")
+                    let text = result.bestTranscription.formattedString
+                    
+                    // Rewritten from "self!" in original code because user may have already tapped to back out of the screen by the time transcription job is done (making it nil), so the self referred to here is an optional
+                    self?.textView.text = text
+                    print("Transcription succesful: \(text)")
+                    do {
+                        try text.write(to: (self?.textFileURL)!, atomically: true, encoding: String.Encoding.utf8)
+                    } catch {
+                        print("Error: \(error)")
+                    }
+                    
                 }
                 
             }
         })
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     /*
