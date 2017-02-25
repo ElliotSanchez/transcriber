@@ -1,6 +1,6 @@
 //
 //  TranscriptionsTableViewController.swift
-//  transcribe
+//  transcriber
 //
 //  Created by hostname on 11/19/16.
 //  Copyright © 2016 notungood. All rights reserved.
